@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.LibrarianMapper">
+
+
+    <resultMap type="com.demo.Librarian" id="LibrarianMapper">
+
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="position" property="position" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <select id="selectLibrarian" parameterType="INTEGER" resultMap="LibrarianMapper">
+        select *
+        from t_librarian
+        where id = #{id}
+    </select>
+    <insert id="insertLibrarian" parameterType="INTEGER">
+        INSERT
+        INTO t_librarian(username,password,age,position)
+        <!--VALUES('#{username}','#{password}','#{age}','#{position}') -->
+        VALUES('sb','123','30','河南')
+    </insert>
+    <delete id="deleteLibrarian" parameterType="INTEGER">
+        DELETE
+        FROM t_librarian
+        WHERE id = #{id}
+    </delete>
+    <update id="updateLibrarian" parameterType="INTEGER">
+        update t_librarian
+        set t_librarian.username='curry',password='88888888',age=35,position='美国'
+        where id = #{id}
+    </update>
+    <select id="getAllLibrarian" parameterType="INTEGER" resultMap="LibrarianMapper">
+        select *
+        from t_librarian
+    </select>
+    <select id="getOneLibrarian" resultType="com.demo.Librarian">
+        select *
+        from t_librarian
+        where username = 'kobe'
+    </select>
+<!--    <select id="findLibrarianByPage" resultType="com.demo.Librarian">-->
+<!--        select * from t_librarian-->
+<!--        limit #{page},#{size}-->
+<!--    </select>-->
+    <select id="findByPager" resultType="com.demo.Librarian">
+	select * from t_librarian limit #{page},#{size}
+</select>
+    <select id="count" resultType="long">
+	select count(1) from t_librarian
+</select>
+
+</mapper>
